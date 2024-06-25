@@ -44,8 +44,8 @@ CustomTable.propTypes = {
   filters: PropTypes.arr,
   isSearch: PropTypes.bool
 };
-export default function CustomTable({ filters = [], ...props }) {
-  const { headData, data, isLoading, heading, isSearch, row, ...rest } = props;
+export default function CustomTable({  ...props }) {
+  const { headData, data, isLoading, heading, isSearch, row,filters, ...rest } = props;
   const { push } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -79,7 +79,7 @@ export default function CustomTable({ filters = [], ...props }) {
   return (
     <Card>
       <>
-        {!filters.length && !heading ? (
+        {!filters?.length && !heading ? (
           <Stack spacing={2} direction="row" alignItems="center" justifyContent="space-between" sx={{ p: 2 }}>
             {heading ? (
               <Typography variant="h4" color="text.primary" px={2} py={2}>
@@ -88,7 +88,7 @@ export default function CustomTable({ filters = [], ...props }) {
             ) : null}
             {isSearch ? <Search /> : null}{' '}
             <Stack spacing={2} direction="row">
-              {filters.map((item) => (
+              {filters?.map((item) => (
                 <FormControl fullWidth key={Math.random()} sx={{ maxWidth: 200, minWidth: 140, width: '100%' }}>
                   <InputLabel id={'select-' + item.name}>{item.name}</InputLabel>
                   <Select
