@@ -27,6 +27,7 @@ export default function Subscription() {
   const handleClose = () => {
     setOpen(false);
     localStorage.setItem('subscriptionDismissedAt', Date.now().toString());
+    return null;
   };
   // useEffect to open the dialog when the component mounts
   React.useEffect(() => {
@@ -34,12 +35,13 @@ export default function Subscription() {
     if (dismissedAt) {
       const timeSinceDismissed = Date.now() - parseInt(dismissedAt, 10);
       if (timeSinceDismissed < ONE_DAY_IN_MS) {
-        return;
+        return null;
       }
     }
 
     const timer = setTimeout(() => {
       setOpen(true);
+      return null;
     }, 10000); //
 
     return () => clearTimeout(timer);

@@ -44,8 +44,8 @@ CustomTable.propTypes = {
   filters: PropTypes.arr,
   isSearch: PropTypes.bool
 };
-export default function CustomTable({  ...props }) {
-  const { headData, data, isLoading, heading, isSearch, row,filters, ...rest } = props;
+export default function CustomTable({ ...props }) {
+  const { headData, data, isLoading, heading, isSearch, row, filters, ...rest } = props;
   const { push } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
