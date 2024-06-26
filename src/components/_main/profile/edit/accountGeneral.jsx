@@ -400,7 +400,6 @@ export default function AccountGeneral() {
                 <LoadingButton
                   type="submit"
                   variant="contained"
-                  type="submit"
                   loading={updateLoading || avatarLoading || loadingUpload}
                 >
                   Save
