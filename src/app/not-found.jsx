@@ -7,13 +7,25 @@ import { Box, Button, Typography } from '@mui/material';
 
 // svg
 import { NotFoundIllustration } from 'src/illustrations';
+import Link from 'next/link';
 
 export default function NotFound() {
   const router = useRouter();
   return (
     <Box
       spacing={3}
-      sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 3 }}
+      sx={{
+        px: 2,
+        display: 'flex',
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: 3,
+        svg: {
+          width: '100%'
+        }
+      }}
     >
       <NotFoundIllustration />
       <Typography variant="h4" color="text.primary">
@@ -27,7 +39,7 @@ export default function NotFound() {
         <Button variant="contained" color="primary" size="large" onClick={() => router.back()}>
           Go Back
         </Button>
-        <Button variant="outlined" color="primary" onClick={() => router.push('/')} size="large">
+        <Button component="a" href="/" variant="outlined" color="primary" size="large">
           Go To Home
         </Button>
       </Box>
