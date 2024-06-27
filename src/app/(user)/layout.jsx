@@ -8,7 +8,7 @@ import Navbar from 'src/layout/_main/navbar';
 import Footer from 'src/layout/_main/footer';
 import Topbar from 'src/layout/_main/topbar';
 import ActionBar from 'src/layout/_main/actionbar';
-import Alertbar from 'src/components/alertBar';
+
 // Meta information
 export const metadata = {
   title: 'Nextall E-commerce Script | Your Gateway to Seamless Shopping and Secure Transactions',
@@ -34,7 +34,6 @@ export default async function RootLayout({ children }) {
       {children}
       <Toolbar sx={{ display: { xs: 'block', md: 'none' } }} />
       <Footer />
-      <Alertbar />
     </>
   );
 }

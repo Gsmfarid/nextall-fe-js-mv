@@ -36,7 +36,7 @@ export default function UserProfile({ id }) {
   );
   const user = (function () {
     if (isLoading) {
-      return null;
+      return;
     } else {
       console.log(data, 'dadsasdas');
       const { user } = data;
@@ -45,7 +45,7 @@ export default function UserProfile({ id }) {
   })();
   const orders = (function () {
     if (isLoading) {
-      return null;
+      return;
     } else {
       const { orders } = data;
       return orders;

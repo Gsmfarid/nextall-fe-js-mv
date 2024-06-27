@@ -20,7 +20,7 @@ export default function RelatedProducts({ ...props }) {
   const { id } = props;
   const { data, isLoading } = useQuery(['related-products'], () => api.getRelatedProducts(id));
   if (!isLoading && !Boolean(data?.data?.length)) {
-    return null;
+    return;
   }
   return (
     <RootStyled>
