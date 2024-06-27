@@ -117,7 +117,7 @@ export default function ProductForm({
       gender: currentProduct?.gender || '',
       category: currentProduct?.category || (categories.length && categories[0]?._id) || '',
       shop: isVendor ? null : currentProduct?.shop || (shops?.length && shops[0]?._id) || '',
-      subCategory: currentProduct?.subCategory || (categories.length && categories[0].subCategories[0]?._id) || '',
+      subCategory: currentProduct?.subCategory || (categories.length && categories[0]?.subCategories[0]?._id) || '',
       status: currentProduct?.status || STATUS_OPTIONS[0],
       blob: currentProduct?.blob || [],
       isFeatured: currentProduct?.isFeatured || false,
