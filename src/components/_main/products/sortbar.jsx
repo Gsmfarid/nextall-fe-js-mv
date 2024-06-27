@@ -138,8 +138,9 @@ export default function SortBar({ compaign, productData, shop, isLoading, sortDa
               color="inherit"
               endIcon={<MdTune />}
               sx={{
-                minWidth: 120,
-                justifyContent: 'space-between'
+                minWidth: { xs: 90, md: 120 },
+                justifyContent: 'space-between',
+                borderRadius: '8px !important'
               }}
             >
               Filters
@@ -160,7 +161,7 @@ export default function SortBar({ compaign, productData, shop, isLoading, sortDa
             size="small"
             fullWidth
             sx={{
-              minWidth: 180
+              minWidth: { xs: 100, md: 180 }
             }}
           >
             {state || state === '' ? (
