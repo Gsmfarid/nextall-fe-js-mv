@@ -38,9 +38,9 @@ export default function SizePreview({ sizes, size, setSize, isDetail, loading })
               }
             }}
             sx={{
-              minHeight: 24,
-              minWidth: 25,
-              height: '24px !important',
+              minHeight: 32,
+              minWidth: 33,
+              height: '32px !important',
               p: 0.2,
               color: 'text.primary !important',
               display: sizeCount === 0 && 'none',
@@ -58,23 +58,29 @@ export default function SizePreview({ sizes, size, setSize, isDetail, loading })
         : sizes?.slice(sizeCount * 6, 6 * (sizeCount + 1)).map((v, i) => (
             <React.Fragment key={Math.random()}>
               {loading ? (
-                <Skeleton variant="rounded" width={25} height={24} sx={{ mr: 0.5 }} />
+                <Skeleton variant="rounded" width={33} height={32} sx={{ mr: 0.5 }} />
               ) : (
                 <Button
                   size="small"
                   variant={size === i ? 'contained' : 'outlined'}
-                  color={size === i ? 'primary' : 'inherit'}
                   onClick={() => setSize(i)}
                   sx={{
-                    minHeight: 24,
-                    minWidth: 25,
-                    height: '24px !important',
+                    height: '32px !important',
+                    minWidth: '32px !important',
                     px: 0.6,
                     py: 0.2,
-                    borderWidth: 1,
                     textTransform: 'uppercase',
                     fontSize: size === i ? 14 : 12,
-                    borderWidth: 0
+                    borderRadius: v.length > 2 ? '12px' : '50%',
+                    bgcolor: size === i ? 'primary.main' : 'background.paper',
+                    borderWidth: 1,
+                    borderStyle: 'solid',
+                    borderColor: (theme) => (size === i ? theme.palette.primary.main : theme.palette.text.primary),
+                    color: size === i ? '#fff' : 'text.primary',
+                    fontWeight: 600,
+                    '&:hover': {
+                      color: size === i ? 'text.primary' : 'primary.main'
+                    }
                   }}
                 >
                   {v}
@@ -93,10 +99,10 @@ export default function SizePreview({ sizes, size, setSize, isDetail, loading })
               }
             }}
             sx={{
-              minHeight: 24,
-              minWidth: 25,
+              minHeight: 32,
+              minWidth: 33,
               borderWidth: 0,
-              height: '24px !important',
+              height: '42px !important',
               color: 'text.primary !important',
               p: 0.2
             }}

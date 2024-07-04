@@ -9,18 +9,7 @@ import { toast } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 
 // mui
-import {
-  Box,
-  Card,
-  Typography,
-  Stack,
-  IconButton,
-  useTheme,
-  useMediaQuery,
-  Tooltip,
-  Skeleton,
-  Zoom
-} from '@mui/material';
+import { Box, Card, Typography, Stack, IconButton, useMediaQuery, Tooltip, Skeleton, Zoom } from '@mui/material';
 // components
 import { useDispatch } from 'src/redux/store';
 import { setWishlist } from 'src/redux/slices/wishlist';
@@ -49,7 +38,6 @@ export default function ShopProductCard({ ...props }) {
 
   const [open, setOpen] = useState(false);
   const [openActions, setOpenActions] = useState(false);
-  const theme = useTheme();
   const router = useRouter();
   const dispatch = useDispatch();
   // type error
@@ -102,9 +90,7 @@ export default function ShopProductCard({ ...props }) {
       onMouseEnter={() => !isLoading && setOpenActions(true)}
       onMouseLeave={() => setOpenActions(false)}
       sx={{
-        display: 'block',
-        boxShadow:
-          theme.palette.mode === 'light' ? '0 6px 16px rgba(145, 158, 171, 25%)' : '0 6px 16px rgb(5 6 6 / 25%)'
+        display: 'block'
       }}
     >
       <Box

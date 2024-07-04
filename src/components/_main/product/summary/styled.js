@@ -3,7 +3,8 @@ import { styled } from '@mui/material/styles';
 const RootStyled = styled('div')(({ theme }) => ({
   '& .heading': {
     textTransform: 'capitalize',
-    marginBottom: 0
+    margin: '4px 0',
+    lineHeight: 1.2
   },
   '& .rating-wrapper': {
     position: 'relative',
@@ -21,10 +22,6 @@ const RootStyled = styled('div')(({ theme }) => ({
   '& .text-price': {
     display: 'flex',
     alignItems: 'center',
-    // marginLeft: 'auto',
-    // position: 'absolute',
-    // right: 0,
-    // marginTop: theme.spacing(0.5),
     '& .old-price': {
       display: 'inline',
       color: 'text.disabled',
@@ -37,9 +34,11 @@ const RootStyled = styled('div')(({ theme }) => ({
     }
   },
   '& .text-discount': {
+    display: 'flex',
+    gap: 8,
+    alignItems: 'center',
     span: {
-      color: theme.palette.error.main,
-      marginLeft: theme.spacing(1)
+      color: theme.palette.common.black
     }
   },
   '& .color-picker-skeleton': {

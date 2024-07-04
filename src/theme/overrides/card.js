@@ -9,7 +9,7 @@ export default function Card(theme) {
           transition: 'all ease-in-out 0.3s',
           background: theme.palette.background.paper,
           borderRadius: theme.spacing(2),
-          boxShadow: theme.shadows[10]
+          boxShadow: 'none'
         }
       }
     },

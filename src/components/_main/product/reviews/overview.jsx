@@ -81,7 +81,7 @@ export default function ReviewOverview({ ...props }) {
       }}
     >
       <Grid container>
-        <GridStyle item xs={12} className="border-bottom">
+        <GridStyle item xs={12}>
           <Typography variant="h2" gutterBottom sx={{ color: 'error.main', mb: 0 }} lineHeight={1}>
             {totalReviews === 0 ? 0 : totalRating?.toFixed(1)}
           </Typography>

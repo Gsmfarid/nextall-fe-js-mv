@@ -27,6 +27,8 @@ ReviewItem.propTypes = {
     images: PropTypes.arrayOf(PropTypes.string),
     name: PropTypes.string
   }),
+  reviewsCount: PropTypes.number,
+  index: PropTypes.number,
   isLoading: PropTypes.bool
 };
 
@@ -36,7 +38,7 @@ ProductDetailsReviewList.propTypes = {
 };
 
 function ReviewItem({ ...props }) {
-  const { review, isLoading } = props;
+  const { review, isLoading, reviewsCount, index } = props;
 
   return (
     <Box pt={2}>
@@ -139,22 +141,24 @@ function ReviewItem({ ...props }) {
           </Box>
         </>
       ) : null}
-      <Divider />{' '}
+      {reviewsCount - 1 === index ? null : <Divider />}
     </Box>
   );
 }
-
-ProductDetailsReviewList.propTypes = {
-  product: PropTypes.object
-};
 
 export default function ProductDetailsReviewList({ ...props }) {
   const { reviews, isLoading } = props;
   return (
     <Box>
       <List disablePadding>
-        {reviews?.map((review) => (
-          <ReviewItem key={Math.random()} review={review} isLoading={isLoading} />
+        {reviews?.map((review, index) => (
+          <ReviewItem
+            key={Math.random()}
+            review={review}
+            reviewsCount={reviews?.length}
+            index={index}
+            isLoading={isLoading}
+          />
         ))}
       </List>
     </Box>

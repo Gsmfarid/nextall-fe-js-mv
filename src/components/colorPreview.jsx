@@ -24,8 +24,8 @@ export default function ColorPreview({ ...props }) {
             }
           }}
           sx={{
-            width: 24,
-            height: 24,
+            width: 32,
+            height: 32,
             p: 0.1,
             svg: {
               color: colorCount === 0 ? 'text.disabled' : 'text.primary'
@@ -41,12 +41,12 @@ export default function ColorPreview({ ...props }) {
         : colors?.slice(colorCount * 6, 6 * (colorCount + 1)).map((v, i) => (
             <React.Fragment key={Math.random()}>
               {loading ? (
-                <Skeleton variant="circular" width={24} height={24} />
+                <Skeleton variant="circular" width={32} height={32} />
               ) : (
                 <Box
                   sx={{
-                    height: 24,
-                    width: 24,
+                    height: 32,
+                    width: 32,
                     borderRadius: 5,
                     bgcolor: v,
                     position: 'relative',
@@ -73,8 +73,8 @@ export default function ColorPreview({ ...props }) {
         <IconButton
           disabled={6 * (colorCount + 1) > colors?.length}
           sx={{
-            width: 24,
-            height: 24,
+            width: 32,
+            height: 32,
             p: 0.1,
             svg: {
               color: 6 * (colorCount + 1) > colors?.length ? 'text.disabled' : 'text.primary'

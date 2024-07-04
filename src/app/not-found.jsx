@@ -7,7 +7,6 @@ import { Box, Button, Typography } from '@mui/material';
 
 // svg
 import { NotFoundIllustration } from 'src/illustrations';
-import Link from 'next/link';
 
 export default function NotFound() {
   const router = useRouter();

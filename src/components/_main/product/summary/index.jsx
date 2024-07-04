@@ -18,30 +18,25 @@ import {
   Tooltip,
   Grid,
   Card,
-  alpha,
-  Divider
+  Divider,
+  useTheme
 } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
 
 // formik
 import { useFormik, Form, FormikProvider, useField } from 'formik';
 // redux
 import { useDispatch, useSelector } from 'src/redux/store';
 // redux
-import { setWishlist } from 'src/redux/slices/wishlist';
 import { addCart } from 'src/redux/slices/product';
-// api
-import * as api from 'src/services';
-import { useMutation } from 'react-query';
 // styles
 import RootStyled from './styled';
 // components
 import ColorPreview from 'src/components/colorPreview';
 import SizePreview from 'src/components/sizePicker';
+
 // hooks
 import { useCurrencyConvert } from 'src/hooks/convertCurrency';
 import { useCurrencyFormatter } from 'src/hooks/formatCurrency';
-import { addCompareProduct, removeCompareProduct } from '../../../../redux/slices/compare';
 // icons
 import { IoIosAdd, IoIosRemove } from 'react-icons/io';
 import { IoLogoWhatsapp } from 'react-icons/io5';
@@ -52,12 +47,9 @@ import { MdContentCopy } from 'react-icons/md';
 import { LiaShippingFastSolid } from 'react-icons/lia';
 import { MdLockOutline } from 'react-icons/md';
 import { FaRegStar } from 'react-icons/fa';
-import { TbMessage } from 'react-icons/tb';
-import { MdOutlineShoppingBasket } from 'react-icons/md';
 import { FiShoppingCart } from 'react-icons/fi';
 import { IoBagCheckOutline } from 'react-icons/io5';
-import { FaRegHeart } from 'react-icons/fa';
-import { GoGitCompare } from 'react-icons/go';
+import Label from 'src/components/label';
 
 ProductDetailsSumary.propTypes = {
   product: PropTypes.object.isRequired,
@@ -103,13 +95,11 @@ Incrementer.propTypes = {
   available: PropTypes.number.isRequired
 };
 export default function ProductDetailsSumary({ ...props }) {
-  const { product, isLoading, totalRating, brand, category, id } = props;
+  const { product, isLoading, totalRating } = props;
+  // brand, category
+  const theme = useTheme();
   const cCurrency = useCurrencyConvert();
   const fCurrency = useCurrencyFormatter();
-  const { isAuthenticated } = useSelector(({ user }) => user);
-  const { products: compareProducts } = useSelector(({ compare }) => compare);
-  const { wishlist } = useSelector(({ wishlist }) => wishlist);
-  const [loading, setLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [color, setColor] = useState(0);
   const [size, setSize] = useState(0);
@@ -132,30 +122,6 @@ export default function ProductDetailsSumary({ ...props }) {
   const onAddCart = (param) => {
     toast.success('Added to cart');
     dispatch(addCart(param));
-  };
-
-  // wishlist
-  const { mutate } = useMutation(api.updateWishlist, {
-    onSuccess: (data) => {
-      toast.success(data.message);
-      setLoading(false);
-      dispatch(setWishlist(data.data));
-    },
-    onError: (err) => {
-      setLoading(false);
-      const message = JSON.stringify(err?.response?.data?.message);
-      toast.error(message);
-    }
-  });
-  const onClickWishList = async (event) => {
-    if (!isAuthenticated) {
-      event.stopPropagation();
-      router.push('/auth/login');
-    } else {
-      event.stopPropagation();
-      setLoading(true);
-      await mutate(id);
-    }
   };
 
   const formik = useFormik({
@@ -216,92 +182,64 @@ export default function ProductDetailsSumary({ ...props }) {
     setLoaded(true);
   }, []);
 
-  const onAddCompare = async (event) => {
-    event.stopPropagation();
-    dispatch(addCompareProduct(product));
-  };
-
-  const onRemoveCompare = async (event) => {
-    event.stopPropagation();
-    dispatch(removeCompareProduct(product?._id));
-  };
   return (
     <RootStyled>
       <FormikProvider value={formik}>
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={7}>
-              <Card sx={{ p: 2 }}>
-                <Typography noWrap variant="h4" paragraph className="heading">
+              <Box sx={{ p: 1 }}>
+                <Typography noWrap variant="h6" paragraph color="text.secondary" sx={{ mb: 0, fontWeight: 500 }}>
+                  {product?.sku}
+                </Typography>
+                <Typography variant="h3" className="heading">
                   {product?.name}
                 </Typography>
-
-                <Stack spacing={1} mt={1} mb={3}>
-                  <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-                    <Stack direction="row" alignItems="center" className="rating-wrapper" spacing={1}>
-                      <Rating value={totalRating} precision={0.1} size="small" readOnly />
-                      <Typography variant="subtitle2" color="text.secondary">
-                        ({totalRating?.toFixed(1)})
-                      </Typography>
-                    </Stack>
-                    <Stack direction="row" alignItems="center" spacing={1} color="text.secondary">
-                      <TbMessage size={18} />
-                      <Typography variant="subtitle2" color="text.secondary">
-                        {product?.reviews.length}{' '}
-                        <span>{Number(product?.reviews.length) > 1 ? 'Reviews' : 'Review'}</span>
-                      </Typography>
-                    </Stack>
-                    <Stack direction="row" alignItems="center" spacing={1} color="text.secondary">
-                      <MdOutlineShoppingBasket size={18} />
-                      <Typography variant="subtitle2" color="text.secondary">
-                        {product?.sold} sold
-                      </Typography>
-                    </Stack>
-                  </Stack>
-                  <Stack direction="row" alignItems="center" spacing={1} mt={1.5}>
-                    <Typography variant="subtitle1">Brand:</Typography>
-                    <Typography variant="subtitle1" color="text.secondary" fontWeight={400}>
-                      {brand?.name || 'Nextall'}
+                <Typography noWrap variant="h6" paragraph color="text.primary" sx={{ mb: 0, fontWeight: 500 }}>
+                  {product?.shop?.title}
+                </Typography>
+                <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
+                  <Stack direction="row" alignItems="center" className="rating-wrapper" spacing={1}>
+                    <Rating value={totalRating} precision={0.1} size="small" readOnly />
+                    <Typography variant="subtitle2" color="text.secondary">
+                      {product?.reviews.length} {Number(product?.reviews.length) > 1 ? 'Reviews' : 'Review'}
                     </Typography>
                   </Stack>
-                  <Stack direction="row" alignItems="center" spacing={1}>
-                    <Typography variant="subtitle1">Category:</Typography>
-                    <Typography variant="subtitle1" color="text.secondary" fontWeight={400}>
-                      {category?.name || 'Nextall'}
-                    </Typography>
-                  </Stack>
-                  {product?.price > product?.priceSale && (
-                    <Stack direction="row" alignItems="center" spacing={1}>
-                      <Typography variant="subtitle1">Discount:</Typography>
-                      <Typography variant="subtitle1" color="text.secondary" fontWeight={400} className="text-discount">
-                        {!isLoading && isLoaded && fCurrency(cCurrency(product?.price - product?.priceSale))}
-                        {<span>({(100 - (product?.priceSale / product?.price) * 100).toFixed(0)}% Discount)</span>}
-                      </Typography>
-                    </Stack>
-                  )}
-                  <Stack direction="row" alignItems="center" spacing={2} pt={1}>
-                    <Typography variant="subtitle1">Color:</Typography>
+                </Stack>
+                <Stack spacing={1} mt={1.5} mb={3}>
+                  <Stack spacing={1} pt={1}>
+                    <Typography variant="subtitle1">Color</Typography>
                     <ColorPreview color={color} setColor={setColor} colors={product?.colors} isDetail />
                   </Stack>
-                  <Stack direction="row" alignItems="center" spacing={2} pt={1}>
-                    <Typography variant="subtitle1">Size:</Typography>
+                  <Stack spacing={1} pt={1}>
+                    <Typography variant="subtitle1">Size</Typography>
                     <SizePreview size={size} setSize={setSize} sizes={product?.sizes} isDetail />
                   </Stack>
                 </Stack>
-                <Typography variant="subtitle1">Description:</Typography>
-                <Typography variant="body1"> {product?.description}</Typography>
-              </Card>
+                {/* <Typography variant="subtitle1">Description</Typography> */}
+                <Typography variant="body1" color="text.secondary">
+                  {' '}
+                  {product?.description}
+                </Typography>
+              </Box>
             </Grid>
             <Grid item xs={12} md={5}>
               <Card sx={{ p: 2, position: 'sticky', top: 156 }}>
-                <Typography variant="h4" className="text-price">
-                  {!isLoading && isLoaded && fCurrency(cCurrency(product?.priceSale))} &nbsp;
+                <Stack direction="row" gap={1} alignItems="center">
+                  <Typography variant="h4" className="text-price">
+                    {!isLoading && isLoaded && fCurrency(cCurrency(product?.priceSale))} &nbsp;
+                    {product?.price <= product?.priceSale ? null : (
+                      <Typography component="span" className="old-price" color="text.secondary">
+                        {!isLoading && isLoaded && fCurrency(cCurrency(product?.price))}
+                      </Typography>
+                    )}
+                  </Typography>
                   {product?.price <= product?.priceSale ? null : (
-                    <Typography component="span" className="old-price" color="text.secondary">
-                      {!isLoading && isLoaded && fCurrency(cCurrency(product?.price))}
-                    </Typography>
+                    <Label variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'} color={'success'}>
+                      {(100 - (product?.priceSale / product?.price) * 100).toFixed(0)}% off
+                    </Label>
                   )}
-                </Typography>
+                </Stack>
                 <Stack direction="row" alignItems="center" spacing={1} className="incrementer-wrapper" my={2}>
                   {isLoading ? (
                     <Box sx={{ float: 'right' }}>
@@ -339,12 +277,6 @@ export default function ProductDetailsSumary({ ...props }) {
                     variant="text"
                     onClick={() => handleAddCart(product)}
                     startIcon={<FiShoppingCart />}
-                    sx={{
-                      background: (theme) => alpha(theme.palette.primary.main, 0.3),
-                      ':hover': {
-                        background: (theme) => alpha(theme.palette.primary.main, 0.3)
-                      }
-                    }}
                   >
                     Add to Cart
                   </Button>
@@ -359,55 +291,6 @@ export default function ProductDetailsSumary({ ...props }) {
                   >
                     Buy Now
                   </Button>
-                  {wishlist?.filter((v) => v === product?._id).length > 0 ? (
-                    <LoadingButton
-                      fullWidth
-                      loading={loading}
-                      onClick={onClickWishList}
-                      type="button"
-                      color="secondary"
-                      variant="contained"
-                      startIcon={<FaRegHeart />}
-                    >
-                      Remove from Wishlist
-                    </LoadingButton>
-                  ) : (
-                    <LoadingButton
-                      fullWidth
-                      loading={loading}
-                      onClick={onClickWishList}
-                      type="button"
-                      color="secondary"
-                      variant="contained"
-                      startIcon={<FaRegHeart />}
-                    >
-                      Add to Wishlist
-                    </LoadingButton>
-                  )}
-
-                  {compareProducts?.filter((v) => v._id === product._id).length > 0 ? (
-                    <Button
-                      startIcon={<GoGitCompare />}
-                      fullWidth
-                      onClick={onRemoveCompare}
-                      type="button"
-                      color="error"
-                      variant="contained"
-                    >
-                      Remove from Compare
-                    </Button>
-                  ) : (
-                    <Button
-                      startIcon={<GoGitCompare />}
-                      fullWidth
-                      onClick={onAddCompare}
-                      type="button"
-                      color="error"
-                      variant="contained"
-                    >
-                      Add to Compare
-                    </Button>
-                  )}
 
                   <Stack direction="row" spacing={0.5} justifyContent={'center'}>
                     <Tooltip title="Copy Prooduct URL">

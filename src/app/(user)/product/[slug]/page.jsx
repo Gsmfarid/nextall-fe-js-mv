@@ -44,7 +44,7 @@ export async function generateMetadata({ params }) {
 export default async function ProductDetail({ params: { slug } }) {
   const response = await api.getProductDetails(slug);
 
-  const { data, totalRating, totalReviews, brand, category } = response;
+  const { data, totalRating, totalReviews, brand, category, subCategory } = response;
 
   return (
     <Box>
@@ -58,8 +58,12 @@ export default async function ProductDetail({ params: { slug } }) {
                 href: '/'
               },
               {
-                name: 'Products',
-                href: '/products'
+                name: category?.name,
+                href: `/products/${category?.slug}`
+              },
+              {
+                name: subCategory?.name || 'Nextall',
+                href: `/products/${category?.slug}/${subCategory?.slug || ''}`
               },
               {
                 name: data?.name

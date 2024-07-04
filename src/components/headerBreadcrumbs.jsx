@@ -32,7 +32,7 @@ export default function HeaderBreadcrumbs({ ...props }) {
           overflow: 'hidden',
           background: createGradient(theme.palette.primary.main, theme.palette.primary.dark),
           borderRadius: '8px',
-          border: `1px solid ${theme.palette.primary}`,
+          border: `1px solid ${theme.palette.primary.main}`,
           '&:before': {
             content: "''",
             position: 'absolute',

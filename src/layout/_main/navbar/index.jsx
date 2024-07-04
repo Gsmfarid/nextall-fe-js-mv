@@ -61,7 +61,7 @@ const LanguageSelect = dynamic(() => import('src/components/languageSelect'), {
 // ----------------------------------------------------------------------
 export default function Navbar() {
   const { checkout } = useSelector(({ product }) => product);
-  const isMobile = useMediaQuery('(max-width:768px)');
+  const isMobile = useMediaQuery('(max-width:992px)');
 
   return (
     <>
