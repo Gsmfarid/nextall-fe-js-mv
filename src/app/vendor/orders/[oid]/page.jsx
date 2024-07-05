@@ -21,7 +21,7 @@ Page.propTypes = {
   }).isRequired
 };
 export default function Page({ params }) {
-  const { data, isLoading } = useQuery(['order-by-admin'], () => api.getOrderByAdmin(params.oid), {
+  const { data, isLoading } = useQuery(['order-by-vendir'], () => api.getOrdersByVendor(params.oid), {
     onError: (err) => {
       toast.error(err.response.data.message || 'Something went wrong!');
     }
