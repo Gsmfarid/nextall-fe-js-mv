@@ -6,13 +6,13 @@ import { Typography, Grid, Box, Stack, Paper, Button } from '@mui/material';
 // icons
 import { IoIosArrowForward } from 'react-icons/io';
 // component
-import CompaginCard from 'src/components/cards/compagin';
+import CampaginCard from 'src/components/cards/campagin';
 // api
 import * as api from 'src/services';
 import { useQuery } from 'react-query';
 
-export default function CompaignsComponent({}) {
-  const { data, isLoading } = useQuery(['get-home-compaign-all'], () => api.getHomeCompaigns('?limit=4'));
+export default function CampaignsComponent({}) {
+  const { data, isLoading } = useQuery(['get-home-campaign-all'], () => api.getHomeCampaigns('?limit=4'));
 
   return !isLoading && !Boolean(data?.data.length) ? null : (
     <Paper elevation={0}>
@@ -24,10 +24,10 @@ export default function CompaignsComponent({}) {
       >
         <Box width="100%">
           <Typography variant="h2" color="text.primary" mt={{ xs: 4, md: 8 }}>
-            All Compaigns
+            All Campaigns
           </Typography>
           <Typography variant="body1" color="text.secondary" mb={{ xs: 3, md: 5 }}>
-            All of Ours Compaigns{' '}
+            All of Ours Campaigns{' '}
           </Typography>
         </Box>
         <Button
@@ -42,7 +42,7 @@ export default function CompaignsComponent({}) {
           }}
           endIcon={<IoIosArrowForward />}
           component={NextLink}
-          href={`/compaigns`}
+          href={`/campaigns`}
         >
           View More
         </Button>
@@ -52,7 +52,7 @@ export default function CompaignsComponent({}) {
           {(isLoading ? Array.from(new Array(6)) : data?.data).map((inner) => (
             <React.Fragment key={Math.random()}>
               <Grid item lg={3} md={4} sm={6} xs={12}>
-                <CompaginCard compaign={inner} isLoading={isLoading} />
+                <CampaginCard campaign={inner} isLoading={isLoading} />
               </Grid>
             </React.Fragment>
           ))}
@@ -70,7 +70,7 @@ export default function CompaignsComponent({}) {
           }}
           endIcon={<IoIosArrowForward />}
           component={NextLink}
-          href={`/compaigns`}
+          href={`/campaigns`}
         >
           View More
         </Button>

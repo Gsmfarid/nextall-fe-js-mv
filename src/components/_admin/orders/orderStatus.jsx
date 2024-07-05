@@ -14,13 +14,14 @@ import * as api from 'src/services';
 import { useMutation } from 'react-query';
 
 SelectOrderStatus.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  isVendor: PropTypes.bool
 };
 
-export default function SelectOrderStatus({ data }) {
+export default function SelectOrderStatus({ data, isVendor }) {
   const router = useRouter();
 
-  const { mutate, isLoading } = useMutation(api.updateOrderStatus, {
+  const { mutate, isLoading } = useMutation(isVendor ? api.updateOrderStatusByVendor : api.updateOrderStatus, {
     onSuccess: (data) => {
       toast.success(data.message);
       router.push('/admin/orders');

@@ -16,7 +16,7 @@ export default function Categories() {
     <>
       <HeaderBreadcrumbs
         admin
-        heading="Categories List"
+        heading="Categories"
         links={[
           {
             name: 'Dashboard',

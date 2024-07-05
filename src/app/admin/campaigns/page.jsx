@@ -1,36 +1,36 @@
 import React from 'react';
 
 // Components
-import CompaignList from 'src/components/_admin/compaigns/compaignList';
+import CampaignList from 'src/components/_admin/campaigns/campaignList';
 import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
 
 // Meta information
 export const metadata = {
-  title: 'Compaigns - Nextall',
+  title: 'Campaigns - Nextall',
   applicationName: 'Nextall',
   authors: 'Nextall'
 };
-export default function Compaigns() {
+export default function Campaigns() {
   return (
     <>
       <HeaderBreadcrumbs
         admin
-        heading="Compaigns List"
+        heading="Campaigns List"
         links={[
           {
             name: 'Admin Dashboard',
             href: '/admin'
           },
           {
-            name: 'Compaigns'
+            name: 'Campaigns'
           }
         ]}
         action={{
-          href: `/admin/compaigns/add`,
-          title: 'Add Compaign'
+          href: `/admin/campaigns/add`,
+          title: 'Add Campaign'
         }}
       />
-      <CompaignList />
+      <CampaignList />
     </>
   );
 }

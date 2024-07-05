@@ -20,7 +20,7 @@ const Filter = dynamic(() => import('src/components/_main/products/filters'), {
   loading: () => <Skeleton variant="rounded" width={'100%'} height={185} />
 });
 
-export default function SortBar({ compaign, productData, shop, isLoading, sortData, category, subCategory }) {
+export default function SortBar({ campaign, productData, shop, isLoading, sortData, category, subCategory }) {
   // filterData
   const router = useRouter();
   const pathname = usePathname();
@@ -131,7 +131,7 @@ export default function SortBar({ compaign, productData, shop, isLoading, sortDa
           )}
         </Typography>
         <Stack direction="row" gap={1} alignItems="center">
-          {compaign ? null : (
+          {campaign ? null : (
             <Button
               onClick={() => setOpenDrawer(true)}
               variant="outlined"

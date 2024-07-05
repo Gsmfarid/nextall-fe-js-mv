@@ -12,17 +12,17 @@ export const dynamic = 'error';
 export const revalidate = 10;
 
 export async function generateStaticParams() {
-  const { data } = await api.getCompaignSlugs();
-  const mapped = data?.map((compaign) => {
+  const { data } = await api.getCampaignSlugs();
+  const mapped = data?.map((campaign) => {
     return {
-      slug: compaign.slug
+      slug: campaign.slug
     };
   });
   return mapped;
 }
 
 export async function generateMetadata({ params }) {
-  const { data: response } = await api.getCompaignBySlug(params.slug);
+  const { data: response } = await api.getCampaignBySlug(params.slug);
 
   return {
     title: response.metaTitle,
@@ -35,17 +35,17 @@ export async function generateMetadata({ params }) {
 }
 export default async function Listing({ params }) {
   const { slug } = params;
-  const { data: compaign } = await api.getCompaignTitle(slug);
+  const { data: campaign } = await api.getCampaignTitle(slug);
 
   return (
     <Box>
       <Box sx={{ bgcolor: 'background.default' }}>
         <Container maxWidth="xl">
           <Box mt={3}>
-            <ShopDetailCover page={'compaigns'} isUser data={compaign} isLoading={false} />
+            <ShopDetailCover page={'campaigns'} isUser data={campaign} isLoading={false} />
           </Box>
 
-          <ProductList compaign={compaign} fetchFilters={'getFiltersByShop'} />
+          <ProductList campaign={campaign} fetchFilters={'getFiltersByShop'} />
         </Container>
       </Box>
     </Box>

@@ -1,11 +1,11 @@
 import React from 'react';
 // components
-import CompaignForm from 'src/components/forms/compaign';
+import CampaignForm from 'src/components/forms/campaign';
 
 export default function addCurrency() {
   return (
     <div>
-      <CompaignForm />
+      <CampaignForm />
     </div>
   );
 }

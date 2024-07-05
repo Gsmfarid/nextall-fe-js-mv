@@ -25,12 +25,15 @@ import {
   FormGroup,
   Skeleton,
   Switch,
-  InputAdornment
+  Tooltip,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
 // api
 import * as api from 'src/services';
 import { useMutation } from 'react-query';
 import axios from 'axios';
+import { FaRegCircleQuestion } from 'react-icons/fa6';
 
 // components
 import UploadMultiFile from 'src/components/upload/UploadMultiFile';
@@ -98,9 +101,7 @@ export default function ProductForm({
     colors: Yup.array().required('Color is required'),
     sizes: Yup.array().required('Size is required'),
     price: Yup.number().required('Price is required'),
-    priceSale: Yup.number()
-      .required('Sale price is required')
-      .lessThan(Yup.ref('price'), 'Sale price should be smaller than price')
+    priceSale: Yup.number().lessThan(Yup.ref('price'), 'Sale price should be smaller than price')
   });
 
   const formik = useFormik({
@@ -356,9 +357,16 @@ export default function ProductForm({
                           </FormControl>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                          <LabelStyle component={'label'} htmlFor="size">
-                            {'Sizes'}
-                          </LabelStyle>
+                          <Stack direction="row" alignItems={'center'}>
+                            <LabelStyle component={'label'} htmlFor="size">
+                              {'Sizes'}{' '}
+                            </LabelStyle>
+                            <Tooltip title="Press enter to add size" placement="top" arrow>
+                              <IconButton sx={{ color: 'text.secondary' }} size="small">
+                                <FaRegCircleQuestion />
+                              </IconButton>
+                            </Tooltip>
+                          </Stack>
 
                           <Autocomplete
                             id="size"
@@ -385,9 +393,16 @@ export default function ProductForm({
                           />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                          <LabelStyle component={'label'} htmlFor="color">
-                            {'Colors'}
-                          </LabelStyle>
+                          <Stack direction="row" alignItems={'center'}>
+                            <LabelStyle component={'label'} htmlFor="color">
+                              {'Colors'}{' '}
+                            </LabelStyle>
+                            <Tooltip title="Press enter to add color" placement="top" arrow>
+                              <IconButton sx={{ color: 'text.secondary' }} size="small">
+                                <FaRegCircleQuestion />
+                              </IconButton>
+                            </Tooltip>
+                          </Stack>
 
                           <Autocomplete
                             id="color"
@@ -444,7 +459,7 @@ export default function ProductForm({
                             )}
                           </FormControl>
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={6}>
                           <FormControl fullWidth>
                             {isInitialized ? (
                               <Skeleton variant="text" width={80} />
@@ -477,7 +492,7 @@ export default function ProductForm({
                             )}
                           </FormControl>
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={6}>
                           <div>
                             {isInitialized ? (
                               <Skeleton variant="text" width={120} />
@@ -499,7 +514,7 @@ export default function ProductForm({
                             )}
                           </div>
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12} md={6}>
                           <div>
                             <LabelStyle component={'label'} htmlFor="product-sku">
                               {'Product Sku'}

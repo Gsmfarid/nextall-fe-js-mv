@@ -14,7 +14,7 @@ import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
 // api
 import * as api from 'src/services';
 import { useQuery } from 'react-query';
-
+import OrderToolbarActions from 'src/components/_admin/orders/orderToolbarActions';
 Page.propTypes = {
   params: PropTypes.shape({
     oid: PropTypes.string.isRequired
@@ -44,6 +44,11 @@ export default function Page({ params }) {
             href: ''
           }
         ]}
+        action={
+          <>
+            <OrderToolbarActions isVendor data={data?.data} />
+          </>
+        }
       />
       <Container maxWidth="xl">
         <Grid container direction={{ xs: 'row', md: 'row-reverse' }} spacing={2}>

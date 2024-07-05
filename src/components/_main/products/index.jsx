@@ -35,7 +35,7 @@ const sortData = [
 const getSearchParams = (searchParams) => {
   return searchParams.toString().length ? '?' + searchParams.toString() : '';
 };
-export default function ProductListing({ category, subCategory, shop, compaign }) {
+export default function ProductListing({ category, subCategory, shop, campaign }) {
   const searchParams = useSearchParams();
   const { rate } = useSelector(({ settings }) => settings);
   const { data, isLoading } = useQuery(
@@ -54,12 +54,12 @@ export default function ProductListing({ category, subCategory, shop, compaign }
             ? 'getProductsBySubCategory'
             : shop
               ? 'getProductsByShop'
-              : compaign
-                ? 'getProductsByCompaign'
+              : campaign
+                ? 'getProductsByCampaign'
                 : 'getProducts'
       ](
         getSearchParams(searchParams),
-        shop ? shop?.slug : category ? category?.slug : subCategory ? subCategory?.slug : compaign ? compaign.slug : '',
+        shop ? shop?.slug : category ? category?.slug : subCategory ? subCategory?.slug : campaign ? campaign.slug : '',
         rate
       )
   );
@@ -73,7 +73,7 @@ export default function ProductListing({ category, subCategory, shop, compaign }
         shop={shop}
         subCategory={subCategory}
         isLoading={isLoading}
-        compaign={compaign}
+        campaign={campaign}
       />
       <ProductList data={data} isLoading={isLoading} isMobile={isMobile} />
       <Pagination data={data} />

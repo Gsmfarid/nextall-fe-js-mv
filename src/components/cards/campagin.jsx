@@ -62,7 +62,7 @@ const renderer = ({ days, hours, minutes, seconds }) => {
   );
 };
 
-export default function CompaginCard({ compaign, isLoading }) {
+export default function CampaignCard({ campaign, isLoading }) {
   return (
     <Card
       sx={{
@@ -90,9 +90,9 @@ export default function CompaginCard({ compaign, isLoading }) {
           >
             <Image
               alt="shop"
-              src={compaign?.cover?.url}
+              src={campaign?.cover?.url}
               placeholder="blur"
-              blurDataURL={compaign?.cover?.blurDataURL}
+              blurDataURL={campaign?.cover?.blurDataURL}
               layout="fill"
               objectFit="cover"
               static
@@ -107,20 +107,20 @@ export default function CompaginCard({ compaign, isLoading }) {
         <Stack spacing={1}>
           <Typography
             component={Link}
-            href={'/compaigns/' + compaign?.slug}
+            href={'/campaigns/' + campaign?.slug}
             color="text.primary"
             variant="h6"
             textAlign="center"
             lineHeight={0.5}
             sx={{ textTransform: 'capitalize' }}
           >
-            {isLoading ? <Skeleton variant="text" width="140px" sx={{ mx: 'auto' }} /> : compaign?.name}
+            {isLoading ? <Skeleton variant="text" width="140px" sx={{ mx: 'auto' }} /> : campaign?.name}
           </Typography>
           <Typography color="text.secondary" variant="body1" textAlign="center">
             {isLoading ? (
               <Skeleton variant="text" width="80px" sx={{ mx: 'auto' }} />
             ) : (
-              `${compaign?.products?.length} ${compaign?.products?.length > 1 ? 'Products' : 'Product'}`
+              `${campaign?.products?.length} ${campaign?.products?.length > 1 ? 'Products' : 'Product'}`
             )}
           </Typography>
           {isLoading ? (
@@ -131,7 +131,7 @@ export default function CompaginCard({ compaign, isLoading }) {
               <Skeleton variant="rounded" height="70px" width="100%" />
             </Stack>
           ) : (
-            <Countdown date={new Date(compaign?.endDate)} renderer={renderer} />
+            <Countdown date={new Date(campaign?.endDate)} renderer={renderer} />
           )}
         </Stack>
       </CardContent>

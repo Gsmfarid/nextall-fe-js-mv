@@ -19,10 +19,11 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { MdOutlineFileDownload } from 'react-icons/md';
 
 OrderToolbarActions.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  isVendor: PropTypes.bool
 };
 
-export default function OrderToolbarActions({ data }) {
+export default function OrderToolbarActions({ data, isVendor }) {
   const router = useRouter();
   const { mutate, isLoading: deleteLoading } = useMutation(api.deleteOrderByAdmin, {
     onSuccess: (data) => {
@@ -54,16 +55,19 @@ export default function OrderToolbarActions({ data }) {
             </LoadingButton>
           )}
         </PDFDownloadLink>
-        <LoadingButton
-          variant="contained"
-          startIcon={<MdOutlineDeleteOutline />}
-          onClick={() => mutate(data?._id)}
-          loading={deleteLoading}
-          loadingPosition="start"
-        >
-          {'Delete'}
-        </LoadingButton>
-        <OrderStatus data={data} />
+        {isVendor ? null : (
+          <LoadingButton
+            variant="contained"
+            startIcon={<MdOutlineDeleteOutline />}
+            onClick={() => mutate(data?._id)}
+            loading={deleteLoading}
+            loadingPosition="start"
+          >
+            {'Delete'}
+          </LoadingButton>
+        )}
+
+        <OrderStatus isVendor={isVendor} data={data} />
       </Stack>
     </Box>
   );

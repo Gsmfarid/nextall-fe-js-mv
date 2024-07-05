@@ -113,8 +113,8 @@ export const navlinks = [
   },
   {
     id: 122,
-    title: 'Compaigns',
-    slug: 'compaigns',
+    title: 'Campaigns',
+    slug: 'campaigns',
     icon: <LuBadgePercent />,
     isSearch: true
   },

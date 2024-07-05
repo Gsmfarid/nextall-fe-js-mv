@@ -145,6 +145,10 @@ export const updateOrderStatus = async ({ id, ...payload }) => {
   const { data } = await http.put(`/admin/orders/${id}`, payload);
   return data;
 };
+export const updateOrderStatusByVendor = async ({ id, ...payload }) => {
+  const { data } = await http.put(`/vendor/orders/${id}`, payload);
+  return data;
+};
 export const getUserByAdminsByAdmin = async (page, search) => {
   const { data: response } = await http.get(`/admin/users?search=${search}&page=${page}`);
   return response;
@@ -250,24 +254,24 @@ export const getCurrencyByAdmin = async (cid) => {
   const { data } = await http.get(`/admin/currencies/${cid}`);
   return data;
 };
-export const getCompaignsByAdmin = async (page, search) => {
-  const { data } = await http.get(`/admin/compaigns?page=${page || 1}&search=${search || ''}`);
+export const getCampaignsByAdmin = async (page, search) => {
+  const { data } = await http.get(`/admin/campaigns?page=${page || 1}&search=${search || ''}`);
   return data;
 };
-export const addCompaignByAdmin = async (payload) => {
-  const { data } = await http.post(`/admin/compaigns`, payload);
+export const addCampaignByAdmin = async (payload) => {
+  const { data } = await http.post(`/admin/campaigns`, payload);
   return data;
 };
-export const updateCompaignByAdmin = async ({ currentSlug, ...payload }) => {
-  const { data } = await http.put(`/admin/compaigns/${currentSlug}`, payload);
+export const updateCampaignByAdmin = async ({ currentSlug, ...payload }) => {
+  const { data } = await http.put(`/admin/campaigns/${currentSlug}`, payload);
   return data;
 };
-export const getCompaignByAdmin = async (slug) => {
-  const { data } = await http.get(`/admin/compaigns/${slug}`);
+export const getCampaignByAdmin = async (slug) => {
+  const { data } = await http.get(`/admin/campaigns/${slug}`);
   return data;
 };
-export const deleteCompaignByAdmin = async (slug) => {
-  const { data } = await http.delete(`/admin/compaigns/${slug}`);
+export const deleteCampaignByAdmin = async (slug) => {
+  const { data } = await http.delete(`/admin/campaigns/${slug}`);
   return data;
 };
 
@@ -337,8 +341,8 @@ export const getProductsByCategory = async (query = '', category, rate) => {
   const { data } = await http.get(`/category/products/${category}${query || '?'}&rate=${rate}`);
   return data;
 };
-export const getProductsByCompaign = async (query = '', slug, rate) => {
-  const { data } = await http.get(`/compaign/products/${slug}${query || '?'}&rate=${rate}`);
+export const getProductsByCampaign = async (query = '', slug, rate) => {
+  const { data } = await http.get(`/campaign/products/${slug}${query || '?'}&rate=${rate}`);
   return data;
 };
 
@@ -494,8 +498,8 @@ export const getHomeShops = async () => {
   const { data } = await http.get(`/shops?limit=5`);
   return data;
 };
-export const getHomeCompaigns = async () => {
-  const { data } = await http.get(`/compaigns`);
+export const getHomeCampaigns = async () => {
+  const { data } = await http.get(`/campaigns`);
   return data;
 };
 export const getBestSellingProducts = async () => {
@@ -598,16 +602,16 @@ export const getSubCategorySlugs = async () => {
   return data;
 };
 
-export const getCompaignSlugs = async () => {
-  const { data } = await http.get('/compaigns-slugs');
+export const getCampaignSlugs = async () => {
+  const { data } = await http.get('/campaigns-slugs');
   return data;
 };
-export const getCompaignBySlug = async (slug) => {
-  const { data } = await http.get(`/compaigns/${slug}`);
+export const getCampaignBySlug = async (slug) => {
+  const { data } = await http.get(`/campaigns/${slug}`);
   return data;
 };
-export const getCompaignTitle = async (slug) => {
-  const { data } = await http.get(`/compaign-title/${slug}`);
+export const getCampaignTitle = async (slug) => {
+  const { data } = await http.get(`/campaign-title/${slug}`);
   return data;
 };
 

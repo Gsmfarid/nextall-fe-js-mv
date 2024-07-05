@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import AddCompaign from 'src/components/_admin/compaigns/addCompaign';
+import AddCampaign from 'src/components/_admin/campaigns/addCampaign';
 import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
 
 export default function page() {
@@ -9,22 +9,22 @@ export default function page() {
     <div>
       <HeaderBreadcrumbs
         admin
-        heading="Compaigns List"
+        heading="Campaigns List"
         links={[
           {
             name: 'Admin Dashboard',
             href: '/admin'
           },
           {
-            name: 'Compaigns',
-            href: '/admin/compaigns'
+            name: 'Campaigns',
+            href: '/admin/campaigns'
           },
           {
-            name: 'Add Compaign'
+            name: 'Add Campaign'
           }
         ]}
       />
-      <AddCompaign />
+      <AddCampaign />
     </div>
   );
 }

@@ -57,8 +57,8 @@ const MAIN_LINKS = [
     listLink2: '/products',
     listText3: 'Shops',
     listLink3: '/shops',
-    listText4: 'Compaigns',
-    listLink4: '/compaigns'
+    listText4: 'Campaigns',
+    listLink4: '/campaigns'
   },
   {
     heading: 'About us',

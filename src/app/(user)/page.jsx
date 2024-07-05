@@ -16,7 +16,7 @@ const Banner = dynamic(() => import('src/components/_main/home/banner'));
 const Brands = dynamic(() => import('src/components/_main/home/brands'));
 const TopCollection = dynamic(() => import('src/components/_main/home/top'));
 const Shops = dynamic(() => import('src/components/_main/home/shop'));
-const Compaigns = dynamic(() => import('src/components/_main/home/compaign'));
+const Campaigns = dynamic(() => import('src/components/_main/home/campaign'));
 const Testimonials = dynamic(() => import('src/components/_main/home/testimonials'));
 const FeaturedProducts = dynamic(() => import('src/components/_main/home/featured'));
 const SubscriptionModal = dynamic(() => import('src/components/_main/home/subscription'), {
@@ -34,7 +34,7 @@ export default function IndexPage() {
         <WhyUs />
         <Categories />
         <BestSellingProducs />
-        <Compaigns />
+        <Campaigns />
       </Container>
       <Banner />
       <Container maxWidth="xl">

@@ -21,6 +21,7 @@ import {
   Skeleton,
   RadioGroup,
   Radio,
+  Tooltip,
   Dialog,
   FormControlLabel,
   Button,
@@ -51,7 +52,7 @@ import * as api from 'src/services';
 import { IoMdClose } from 'react-icons/io';
 import { format, parseISO } from 'date-fns';
 
-CompaignForm.propTypes = {
+CampaignForm.propTypes = {
   data: PropTypes.object,
   isLoading: PropTypes.bool
 };
@@ -65,7 +66,7 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 const STATUS_OPTIONS = ['enable', 'disable'];
 
-export default function CompaignForm({ data: currentCompaign, isLoading: compaignLoading }) {
+export default function CampaignForm({ data: currentCampaign, isLoading: campaignLoading }) {
   const router = useRouter();
   const cCurrency = useCurrencyConvert();
   const fCurrency = useCurrencyFormatter();
@@ -84,17 +85,17 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
   });
 
   const { mutate, isLoading } = useMutation(
-    currentCompaign ? 'update' : 'new',
-    currentCompaign ? api.updateCompaignByAdmin : api.addCompaignByAdmin,
+    currentCampaign ? 'update' : 'new',
+    currentCampaign ? api.updateCampaignByAdmin : api.addCampaignByAdmin,
     {
-      ...(currentCompaign && {
-        enabled: Boolean(currentCompaign)
+      ...(currentCampaign && {
+        enabled: Boolean(currentCampaign)
       }),
       retry: false,
       onSuccess: (data) => {
         toast.success(data.message);
 
-        router.push('/admin/compaigns');
+        router.push('/admin/campaigns');
       },
       onError: (error) => {
         toast.error(error.response.data.message);
@@ -106,7 +107,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
       toast.error(error.response.data.message);
     }
   });
-  const NewcompaignSchema = Yup.object().shape({
+  const NewcampaignSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     cover: Yup.mixed().required('Cover is required'),
     slug: Yup.string().required('Slug is required'),
@@ -121,32 +122,32 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
 
   const formik = useFormik({
     initialValues: {
-      name: currentCompaign?.name || '',
-      metaTitle: currentCompaign?.metaTitle || '',
-      cover: currentCompaign?.cover || null,
-      description: currentCompaign?.description || '',
-      metaDescription: currentCompaign?.metaDescription || '',
-      products: currentCompaign?.products || [],
+      name: currentCampaign?.name || '',
+      metaTitle: currentCampaign?.metaTitle || '',
+      cover: currentCampaign?.cover || null,
+      description: currentCampaign?.description || '',
+      metaDescription: currentCampaign?.metaDescription || '',
+      products: currentCampaign?.products || [],
 
-      startDate: currentCompaign?.startDate ? format(parseISO(currentCompaign?.startDate), 'yyyy-MM-dd') : '',
+      startDate: currentCampaign?.startDate ? format(parseISO(currentCampaign?.startDate), 'yyyy-MM-dd') : '',
 
-      endDate: currentCompaign?.endDate ? format(parseISO(currentCompaign?.endDate), 'yyyy-MM-dd') : '',
-      discount: currentCompaign?.discount || '',
-      discountType: currentCompaign?.discountType || 'percent',
-      file: currentCompaign?.cover || '',
-      slug: currentCompaign?.slug || '',
-      status: currentCompaign?.status || STATUS_OPTIONS[0]
+      endDate: currentCampaign?.endDate ? format(parseISO(currentCampaign?.endDate), 'yyyy-MM-dd') : '',
+      discount: currentCampaign?.discount || '',
+      discountType: currentCampaign?.discountType || 'percent',
+      file: currentCampaign?.cover || '',
+      slug: currentCampaign?.slug || '',
+      status: currentCampaign?.status || STATUS_OPTIONS[0]
     },
     enableReinitialize: true,
-    validationSchema: NewcompaignSchema,
+    validationSchema: NewcampaignSchema,
     onSubmit: async (values) => {
       const { products, ...rest } = values;
       try {
         mutate({
           ...rest,
           products: products.map((v) => v._id),
-          ...(currentCompaign && {
-            currentSlug: currentCompaign.slug
+          ...(currentCampaign && {
+            currentSlug: currentCampaign.slug
           })
         });
       } catch (error) {
@@ -212,19 +213,19 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
               <Card sx={{ p: 3 }}>
                 <Stack spacing={3}>
                   <div>
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="text" width={140} />
                     ) : (
-                      <LabelStyle component={'label'} htmlFor="compaign-name">
+                      <LabelStyle component={'label'} htmlFor="campaign-name">
                         {' '}
-                        {'Compaign Name'}{' '}
+                        {'Campaign Name'}{' '}
                       </LabelStyle>
                     )}
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="rectangular" width="100%" height={56} />
                     ) : (
                       <TextField
-                        id="compaign-name"
+                        id="campaign-name"
                         fullWidth
                         {...getFieldProps('name')}
                         onChange={handleTitleChange} // add onChange handler for title
@@ -234,14 +235,14 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                     )}
                   </div>
                   <div>
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="text" width={100} />
                     ) : (
                       <LabelStyle component={'label'} htmlFor="meta-title">
                         {'Meta Title'}
                       </LabelStyle>
                     )}
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="rectangular" width="100%" height={56} />
                     ) : (
                       <TextField
@@ -254,7 +255,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                     )}
                   </div>
                   <div>
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="text" width={70} />
                     ) : (
                       <LabelStyle component={'label'} htmlFor="slug">
@@ -262,7 +263,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                         {'Slug'}
                       </LabelStyle>
                     )}
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="rectangular" width="100%" height={56} />
                     ) : (
                       <TextField
@@ -275,7 +276,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                     )}
                   </div>
                   <div>
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="text" width={100} />
                     ) : (
                       <LabelStyle component={'label'} htmlFor="description">
@@ -283,7 +284,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                         {'Description'}{' '}
                       </LabelStyle>
                     )}
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="rectangular" width="100%" height={240} />
                     ) : (
                       <TextField
@@ -300,14 +301,14 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
 
                   <div>
                     <Stack direction="row" justifyContent="space-between">
-                      {compaignLoading ? (
+                      {campaignLoading ? (
                         <Skeleton variant="text" width={150} />
                       ) : (
                         <LabelStyle variant="body1" component={'label'} color="text.primary">
                           Image
                         </LabelStyle>
                       )}
-                      {compaignLoading ? (
+                      {campaignLoading ? (
                         <Skeleton variant="text" width={150} />
                       ) : (
                         <LabelStyle component={'label'} htmlFor="file">
@@ -315,7 +316,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                         </LabelStyle>
                       )}
                     </Stack>
-                    {compaignLoading ? (
+                    {campaignLoading ? (
                       <Skeleton variant="rectangular" width="100%" height={225} />
                     ) : (
                       <UploadSingleFile
@@ -323,7 +324,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                         file={values.cover}
                         onDrop={handleDrop}
                         error={Boolean(touched.cover && errors.cover)}
-                        compaign
+                        campaign
                         accept="image/*"
                         loading={state.loading}
                       />
@@ -349,7 +350,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                   <Card sx={{ p: 3 }}>
                     <Stack spacing={3}>
                       <div>
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="text" width={150} />
                         ) : (
                           <LabelStyle component={'label'} htmlFor="meta-description">
@@ -357,7 +358,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                             {'Meta Description'}{' '}
                           </LabelStyle>
                         )}
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="rectangular" width="100%" height={240} />
                         ) : (
                           <TextField
@@ -372,16 +373,16 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                         )}
                       </div>
                       <FormControl>
-                        <LabelStyle component={'label'} htmlFor="compaign-type">
-                          Compaign type
+                        <LabelStyle component={'label'} htmlFor="campaign-type">
+                          Campaign type
                         </LabelStyle>
-                        <RadioGroup row id="compaign-type" value={values.discountType} onChange={handleChange}>
+                        <RadioGroup row id="campaign-type" value={values.discountType} onChange={handleChange}>
                           <FormControlLabel value="percent" control={<Radio />} label="Percent" />
                           <FormControlLabel value="fixed" control={<Radio />} label="Fixed" />
                         </RadioGroup>
                       </FormControl>
                       <div>
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="text" width={150} />
                         ) : (
                           <LabelStyle component={'label'} htmlFor="discount">
@@ -389,7 +390,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                             Discount
                           </LabelStyle>
                         )}
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="rectangular" width="100%" height={56} />
                         ) : (
                           <TextField
@@ -403,7 +404,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                         )}
                       </div>
                       <div>
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="text" width={150} />
                         ) : (
                           <LabelStyle component={'label'} htmlFor="startDate">
@@ -411,7 +412,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                             Start Date
                           </LabelStyle>
                         )}
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="rectangular" width="100%" height={56} />
                         ) : (
                           <TextField
@@ -425,7 +426,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                         )}
                       </div>
                       <div>
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="text" width={150} />
                         ) : (
                           <LabelStyle component={'label'} htmlFor="endDate">
@@ -433,7 +434,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                             End Date
                           </LabelStyle>
                         )}
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="rectangular" width="100%" height={56} />
                         ) : (
                           <TextField
@@ -448,14 +449,14 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                       </div>
 
                       <FormControl fullWidth sx={{ select: { textTransform: 'capitalize' } }}>
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="text" width={70} />
                         ) : (
                           <LabelStyle component={'label'} htmlFor="status">
                             {'Status'}
                           </LabelStyle>
                         )}
-                        {compaignLoading ? (
+                        {campaignLoading ? (
                           <Skeleton variant="rectangular" width="100%" height={56} />
                         ) : (
                           <Select
@@ -500,7 +501,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                             sx={{ px: 1 }}
                           >
                             <ListItemIcon>
-                              {compaignLoading ? (
+                              {campaignLoading ? (
                                 <Skeleton variant="circular" width={40} height={40} />
                               ) : (
                                 <BlurImageAvatar
@@ -515,31 +516,43 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                               )}
                             </ListItemIcon>
                             <ListItemText>
-                              <Stack direction="row" gap={1} alignItems={'center'} justifyContent={'space-between'}>
+                              <Stack
+                                direction="row"
+                                gap={1}
+                                alignItems={'center'}
+                                justifyContent={'space-between'}
+                                sx={{
+                                  div: {
+                                    display: 'grid'
+                                  }
+                                }}
+                              >
                                 <div>
                                   <Typography variant="subtitle2" color="text.primary" noWrap>
-                                    {compaignLoading ? <Skeleton variant="text" width="200px" /> : product.name}
+                                    {campaignLoading ? <Skeleton variant="text" width="200px" /> : product.name}
                                   </Typography>
                                   <Typography variant="body2" color="text.secondary" noWrap>
-                                    {compaignLoading ? (
+                                    {campaignLoading ? (
                                       <Skeleton variant="text" width="100px" />
                                     ) : (
                                       fCurrency(cCurrency(product.priceSale))
                                     )}
                                   </Typography>
                                 </div>
-                                <IconButton
-                                  size="small"
-                                  aria-label="remove"
-                                  onClick={() =>
-                                    setFieldValue(
-                                      'products',
-                                      values.products.filter((v) => v._id !== product._id)
-                                    )
-                                  }
-                                >
-                                  <IoMdClose />
-                                </IconButton>
+                                <Tooltip title="Remove product from list" placement="top" arrow>
+                                  <IconButton
+                                    size="small"
+                                    aria-label="remove"
+                                    onClick={() =>
+                                      setFieldValue(
+                                        'products',
+                                        values.products.filter((v) => v._id !== product._id)
+                                      )
+                                    }
+                                  >
+                                    <IoMdClose />
+                                  </IconButton>
+                                </Tooltip>
                               </Stack>
                             </ListItemText>
                           </MenuItem>
@@ -558,7 +571,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                       </Dialog>
                     </Stack>
                   </Card>
-                  {compaignLoading ? (
+                  {campaignLoading ? (
                     <Skeleton variant="rectangular" width="100%" height={56} />
                   ) : (
                     <LoadingButton
@@ -568,7 +581,7 @@ export default function CompaignForm({ data: currentCompaign, isLoading: compaig
                       loading={isLoading}
                       sx={{ ml: 'auto', mt: 3 }}
                     >
-                      {currentCompaign ? 'Edit compaign' : 'Create compaign'}
+                      {currentCampaign ? 'Edit campaign' : 'Create campaign'}
                     </LoadingButton>
                   )}
                 </Stack>

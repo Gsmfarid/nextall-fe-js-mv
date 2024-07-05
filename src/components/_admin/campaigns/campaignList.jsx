@@ -11,7 +11,7 @@ import { Dialog } from '@mui/material';
 // components
 import DeleteDialog from 'src/components/dialog/delete';
 import Table from 'src/components/table/table';
-import Compaign from 'src/components/table/rows/compaign';
+import Campaign from 'src/components/table/rows/campaign';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false, sort: true },
@@ -33,7 +33,7 @@ export default function BrandList() {
 
   const { data, isLoading, error } = useQuery(
     ['brands', apicall, searchParam, pageParam],
-    () => api.getCompaignsByAdmin(+pageParam || 1, searchParam || ''),
+    () => api.getCampaignsByAdmin(+pageParam || 1, searchParam || ''),
     {
       onError: (err) => toast.error(err.response.data.message || 'Something went wrong!')
     }
@@ -54,10 +54,10 @@ export default function BrandList() {
           onClose={handleClose}
           id={id}
           apicall={setApicall}
-          endPoint="deleteCompaignByAdmin"
-          type={'Compaign deleted'}
+          endPoint="deleteCampaignByAdmin"
+          type={'Campaign deleted'}
           deleteMessage={
-            'Are you sure you want to delete this compaign? Please consider carefully before making irreversible changes.'
+            'Are you sure you want to delete this campaign? Please consider carefully before making irreversible changes.'
           }
         />
       </Dialog>
@@ -65,7 +65,7 @@ export default function BrandList() {
         headData={TABLE_HEAD}
         data={error ? [] : data}
         isLoading={isLoading}
-        row={Compaign}
+        row={Campaign}
         handleClickOpen={handleClickOpen}
         isSearch
       />
