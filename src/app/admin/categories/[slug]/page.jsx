@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 
@@ -16,7 +16,8 @@ Page.propTypes = {
     slug: PropTypes.string.isRequired
   }).isRequired
 };
-export default function Page({ params }) {
+export default function Page(props) {
+  const params = use(props.params);
   const { data, isLoading } = useQuery(['coupon-codes'], () => api.getCategoryByAdmin(params.slug), {
     onError: (err) => {
       toast.error(err.response.data.message || 'Something went wrong!');

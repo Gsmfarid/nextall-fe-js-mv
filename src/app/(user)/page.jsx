@@ -1,6 +1,3 @@
-'use client';
-import dynamic from 'next/dynamic';
-
 // mui
 import { Container } from '@mui/material'; // Importing Container component from MUI (Material-UI) library.
 
@@ -8,21 +5,19 @@ import { Container } from '@mui/material'; // Importing Container component from
 import Hero from 'src/components/_main/home/hero'; // Importing the Hero component.
 import WhyUs from 'src/components/_main/home/whyUs'; // Importing the WhyUs component.
 import TopBanners from 'src/components/_main/home/topBanners'; // Importing the TopBanners component.
+import Categories from 'src/components/_main/home/categories'; // Importing the TopBanners component.
+import BestSellingProducs from 'src/components/_main/home/bestSelling'; // Importing the TopBanners component.
+import Banner from 'src/components/_main/home/banner'; // Importing the TopBanners component.
+import Brands from 'src/components/_main/home/brands'; // Importing the TopBanners component.
+import TopCollection from 'src/components/_main/home/top'; // Importing the TopBanners component.
+import Shops from 'src/components/_main/home/shop'; // Importing the TopBanners component.
+import Campaigns from 'src/components/_main/home/campaign'; // Importing the TopBanners component.
+import Testimonials from 'src/components/_main/home/testimonials'; // Importing the TopBanners component.
+import FeaturedProducts from 'src/components/_main/home/featured'; // Importing the TopBanners component.
+import SubscriptionModal from 'src/components/_main/home/subscription';
 
-// Dynamic imports
-const Categories = dynamic(() => import('src/components/_main/home/categories'));
-const BestSellingProducs = dynamic(() => import('src/components/_main/home/bestSelling'));
-const Banner = dynamic(() => import('src/components/_main/home/banner'));
-const Brands = dynamic(() => import('src/components/_main/home/brands'));
-const TopCollection = dynamic(() => import('src/components/_main/home/top'));
-const Shops = dynamic(() => import('src/components/_main/home/shop'));
-const Campaigns = dynamic(() => import('src/components/_main/home/campaign'));
-const Testimonials = dynamic(() => import('src/components/_main/home/testimonials'));
-const FeaturedProducts = dynamic(() => import('src/components/_main/home/featured'));
-const SubscriptionModal = dynamic(() => import('src/components/_main/home/subscription'), {
-  ssr: false
-});
-
+export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 export default function IndexPage() {
   return (
     <>
@@ -46,6 +41,7 @@ export default function IndexPage() {
       <Container maxWidth="xl">
         <Brands />
       </Container>
+
       <SubscriptionModal />
     </>
   );

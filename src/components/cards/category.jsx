@@ -56,11 +56,8 @@ export default function CategoriesCard({ ...props }) {
                 <Image
                   alt="category"
                   src={category?.cover?.url}
-                  placeholder="blur"
-                  blurDataURL={category?.cover?.blurDataURL}
                   layout="fill"
                   objectFit="cover"
-                  static
                   draggable="false"
                   quality={5}
                   sizes={'50vw'}
@@ -92,8 +89,7 @@ CategoriesCard.propTypes = {
   category: PropTypes.shape({
     slug: PropTypes.string.isRequired,
     cover: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      blurDataURL: PropTypes.string.isRequired
+      url: PropTypes.string.isRequired
     }),
     name: PropTypes.string.isRequired
   }).isRequired

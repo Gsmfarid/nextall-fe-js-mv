@@ -62,7 +62,7 @@ export default function Testimonials() {
         // display: { xs: 'none', md: 'block' }
       }}
     >
-      <Image priority src={bgImage} alt="centered-banner" layout="fill" objectFit="cover" static draggable="false" />
+      <Image priority src={bgImage} alt="centered-banner" layout="fill" objectFit="cover" draggable="false" />
       <Container maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>

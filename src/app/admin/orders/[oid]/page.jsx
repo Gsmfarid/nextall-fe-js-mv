@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 
@@ -21,7 +21,8 @@ OrderDetail.propTypes = {
     oid: PropTypes.string.isRequired
   }).isRequired
 };
-export default function OrderDetail({ params }) {
+export default function OrderDetail(props) {
+  const params = use(props.params);
   const { data, isLoading } = useQuery(['order-by-admin'], () => api.getOrderByAdmin(params.oid), {
     onError: (err) => {
       toast.error(err?.response?.data?.message || 'Something went wrong!');

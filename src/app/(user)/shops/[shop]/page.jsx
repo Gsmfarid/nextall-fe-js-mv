@@ -8,8 +8,8 @@ import ProductList from 'src/components/_main/products';
 // api
 import * as api from 'src/services';
 
-export const revalidate = 10;
-export const dynamic = 'error';
+export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const { data } = await api.getShopSlugs();
@@ -21,7 +21,8 @@ export async function generateStaticParams() {
   return mapped;
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const { data: response } = await api.getShopBySlug(params.shop);
 
   return {
@@ -33,7 +34,8 @@ export async function generateMetadata({ params }) {
     }
   };
 }
-export default async function Listing({ params }) {
+export default async function Listing(props) {
+  const params = await props.params;
   const { shop } = params;
   const { data: shopData } = await api.getShopTitle(shop);
 

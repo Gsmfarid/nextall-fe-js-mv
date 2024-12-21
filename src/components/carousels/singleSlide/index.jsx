@@ -87,7 +87,6 @@ function CarouselItem({ ...props }) {
         layout="fill"
         placeholder="blur"
         objectFit="cover"
-        static
         draggable="false"
         sizes="700px"
       />

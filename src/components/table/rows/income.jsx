@@ -81,14 +81,7 @@ export default function IncomeList({ isLoading, row, handleClickOpen, isPayout, 
                   }
                 }}
               >
-                <BlurImage
-                  alt={row?.name}
-                  blurDataURL={row?.shop?.logo.blurDataURL}
-                  placeholder="blur"
-                  src={row?.shop?.logo?.url}
-                  layout="fill"
-                  objectFit="cover"
-                />
+                <BlurImage alt={row?.name} src={row?.shop?.logo?.url} layout="fill" objectFit="cover" />
               </Box>
             )}
             <Typography variant="subtitle2" noWrap>

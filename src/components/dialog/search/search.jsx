@@ -281,8 +281,6 @@ export default function Search({ ...props }) {
                         <BlurImageAvatar
                           alt={product.name}
                           src={product.image.url}
-                          placeholder={'blur'}
-                          blurDataURL={product.image.blurDataURL}
                           priority
                           layout="fill"
                           objectFit="cover"

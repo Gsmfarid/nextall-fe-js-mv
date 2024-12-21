@@ -7,7 +7,8 @@ import GuestGuard from 'src/guards/guest';
 import { Container, Typography, Card } from '@mui/material';
 // component
 import ResetPasswordMain from 'src/components/_main/auth/resetPassword';
-export default function ResetPassword({ params }) {
+export default async function ResetPassword(props) {
+  const params = await props.params;
   const { token } = params;
   return (
     <>

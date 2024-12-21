@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 import PropTypes from 'prop-types';
 
 // mui
@@ -24,7 +24,9 @@ Page.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-export default function Page({ params: { slug } }) {
+export default function Page(props) {
+  const params = use(props.params);
+  const { slug } = params;
   const theme = useTheme();
   const [count, setCount] = React.useState(0);
   const { data, isLoading } = useQuery(['shop-by-admin', count], () => api.getShopDetailsByAdmin(slug));

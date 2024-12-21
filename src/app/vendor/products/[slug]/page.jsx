@@ -7,7 +7,8 @@ import EditProduct from 'src/components/_admin/products/editProduct';
 // api
 import * as api from 'src/services';
 
-export default async function page({ params }) {
+export default async function page(props) {
+  const params = await props.params;
   const { data: categories } = await api.getAllCategories();
   const { data: brands } = await api.getAllBrandsByAdmin();
 

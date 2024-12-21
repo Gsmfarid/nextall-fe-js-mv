@@ -143,15 +143,7 @@ export default function ShopProductCard({ ...props }) {
             />
           ) : (
             <Box component={Link} href={linkTo}>
-              <BlurImage
-                alt={name}
-                src={image.url}
-                fill
-                draggable="false"
-                objectFit="cover"
-                placeholder="blur"
-                blurDataURL={image?.blurDataURL}
-              />
+              <BlurImage alt={name} src={image.url} fill draggable="false" objectFit="cover" />
             </Box>
           )}
         </Box>
@@ -171,18 +163,19 @@ export default function ShopProductCard({ ...props }) {
                 zIndex: 11
               }}
             >
-              {
-                <Tooltip title="Add to cart">
-                  <IconButton
-                    aria-label="add to cart"
-                    disabled={loading || product?.available < 1}
-                    onClick={() => setOpen(true)}
-                    size={isTablet ? 'small' : 'medium'}
-                  >
-                    <GoEye />
-                  </IconButton>
-                </Tooltip>
-              }
+              {!loading ||
+                (product?.available > 0 && (
+                  <Tooltip title="Add to cart">
+                    <IconButton
+                      aria-label="add to cart"
+                      disabled={loading || product?.available < 1}
+                      onClick={() => setOpen(true)}
+                      size={isTablet ? 'small' : 'medium'}
+                    >
+                      <GoEye />
+                    </IconButton>
+                  </Tooltip>
+                ))}
 
               {wishlist?.filter((v) => v === _id).length > 0 ? (
                 <Tooltip title="Remove from cart">

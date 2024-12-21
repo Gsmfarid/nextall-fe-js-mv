@@ -38,7 +38,6 @@ export default function Index() {
                 alt="banner-1"
                 placeholder="blur"
                 layout="fill"
-                static
                 sizes="100vw"
                 objectFit="cover"
               />
@@ -113,7 +112,6 @@ export default function Index() {
                 alt="banner-1"
                 placeholder="blur"
                 layout="fill"
-                static
                 sizes="100vw"
                 objectFit="cover"
               />

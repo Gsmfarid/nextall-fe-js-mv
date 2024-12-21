@@ -1,18 +1,16 @@
-'use client';
 import React from 'react';
-import { useRouter } from 'next-nprogress-bar';
+import Link from 'next/link';
+// import { useRouter } from 'next-nprogress-bar';
 // components
 import Image from 'src/components/blurImage';
 // mui
-import { Typography, Box, Stack, Card, Grid, Skeleton, CardActionArea } from '@mui/material';
+import { Typography, Box, Stack, Card, Grid, CardActionArea } from '@mui/material';
 // // api
 import * as api from 'src/services';
-import { useQuery } from 'react-query';
 
-export default function Brands() {
-  const { push } = useRouter();
-  const { data, isLoading } = useQuery(['get-brands-products'], () => api.getHomeBrands());
-
+export default async function Brands() {
+  // const { push } = useRouter();
+  const { data } = await api.getHomeBrands();
   return (
     <Box
       sx={{
@@ -37,11 +35,9 @@ export default function Brands() {
         Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
       </Typography>
 
-      {isLoading ? (
-        <Skeleton variant="rounded" width={80} height={80} />
-      ) : Boolean(data?.data.length) ? (
+      {Boolean(data?.length) ? (
         <Grid container alignItems="center" justifyContent="center" spacing={2}>
-          {(isLoading ? Array.from(new Array(6)) : data?.data).map((v) => (
+          {data.map((v) => (
             <Grid key={v._id} item xs={6} sm={3} md={2}>
               <Card
                 className="slider-main"
@@ -58,18 +54,9 @@ export default function Brands() {
                   }
                 }}
               >
-                <CardActionArea onClick={() => push(`/products?brand=${v.slug}`)} sx={{ p: 1, pr: 2 }}>
+                <CardActionArea component={Link} href={`/products?brand=${v.slug}`} sx={{ p: 1, pr: 2 }}>
                   <Stack direction="row" alignItems="center" spacing={2}>
-                    <Image
-                      src={v.logo.url}
-                      alt="logo"
-                      width={70}
-                      height={70}
-                      draggable="false"
-                      placeholder="blur"
-                      objectFit="cover"
-                      blurDataURL={v?.logo?.blurDataURL}
-                    />
+                    <Image src={v.logo.url} alt="logo" width={70} height={70} draggable="false" objectFit="cover" />
                     <Stack>
                       <Typography variant="subtitle1" color="text.primary" noWrap>
                         {v.name}

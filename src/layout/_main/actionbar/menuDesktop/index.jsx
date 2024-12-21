@@ -15,10 +15,6 @@ import { FaAngleDown } from 'react-icons/fa6';
 // components
 import MenuDesktopPopover from 'src/components/popover/menuDesktop';
 
-// api
-import { useQuery } from 'react-query';
-import * as api from 'src/services';
-
 // ----------------------------------------------------------------------
 
 MenuDesktopItem.propTypes = {
@@ -120,9 +116,7 @@ function MenuDesktopItem({ ...props }) {
 }
 
 export default function MenuDesktop({ ...props }) {
-  const { isOffset, navConfig, isLeft } = props;
-
-  const { data, isLoading } = useQuery(['get-categories-all'], () => api.getAllCategories());
+  const { isOffset, navConfig, isLeft, categories } = props;
 
   const { pathname } = useRouter();
 
@@ -171,8 +165,8 @@ export default function MenuDesktop({ ...props }) {
           scrollPosition={scrollPosition}
           key={Math.random()}
           item={links}
-          data={data?.data}
-          isLoading={isLoading}
+          data={categories}
+          isLoading={false}
           pathname={pathname}
           isOpen={open}
           onOpen={handleOpen}

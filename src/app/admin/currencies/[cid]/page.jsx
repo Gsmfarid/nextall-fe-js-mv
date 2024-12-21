@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 import toast from 'react-hot-toast';
 
 // components
@@ -10,7 +10,8 @@ import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
 import * as api from 'src/services';
 import { useQuery } from 'react-query';
 
-export default function Page({ params }) {
+export default function Page(props) {
+  const params = use(props.params);
   const { data, isLoading } = useQuery(['get-admin-currency'], () => api.getCurrencyByAdmin(params.cid), {
     onError: (err) => {
       toast.error(err.response.data.message || 'Something went wrong!');

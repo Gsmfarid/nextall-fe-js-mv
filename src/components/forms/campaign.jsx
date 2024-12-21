@@ -507,8 +507,6 @@ export default function CampaignForm({ data: currentCampaign, isLoading: campaig
                                 <BlurImageAvatar
                                   alt={product.name}
                                   src={product.image.url}
-                                  placeholder={'blur'}
-                                  blurDataURL={product.image.blurDataURL}
                                   priority
                                   layout="fill"
                                   objectFit="cover"

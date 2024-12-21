@@ -53,13 +53,13 @@ const Search = dynamic(() => import('src/components/dialog/search'), {
   srr: false,
   loading: () => <Skeleton variant="rounded" width={300} height={56} sx={{ borderRadius: '70px' }} />
 });
-const LanguageSelect = dynamic(() => import('src/components/languageSelect'), {
+const CurrencySelect = dynamic(() => import('src/components/currencySelect'), {
   ssr: false,
   loading: () => <Skeleton variant="circular" width={40} height={40} />
 });
 
 // ----------------------------------------------------------------------
-export default function Navbar() {
+export default function Navbar({ currencies }) {
   const { checkout } = useSelector(({ product }) => product);
   const isMobile = useMediaQuery('(max-width:992px)');
 
@@ -95,7 +95,7 @@ export default function Navbar() {
             </Stack>
 
             <Stack gap={2} direction="row" alignItems={'center'}>
-              <LanguageSelect />
+              <CurrencySelect currencies={currencies} />
               <SettingMode />
               <WishlistPopover />
               <CompareWidget />

@@ -4,7 +4,8 @@ import React from 'react';
 import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
 import UsersDetails from 'src/components/_admin/users/userDetails';
 
-export default function page({ params }) {
+export default async function page(props) {
+  const params = await props.params;
   return (
     <>
       <HeaderBreadcrumbs

@@ -1,4 +1,3 @@
-'use client';
 // react
 import React from 'react';
 import NextLink from 'next/link';
@@ -9,9 +8,10 @@ import { IoIosArrowForward } from 'react-icons/io';
 import CategoryCard from 'src/components/cards/category';
 // api
 import * as api from 'src/services';
-import { useQuery } from 'react-query';
-export default function Categories() {
-  const { data, isLoading } = useQuery(['get-home-categories'], () => api.getHomeCategories());
+
+export default async function Categories() {
+  const { data } = await api.getHomeCategories();
+
   return (
     <Paper elevation={0}>
       <Stack
@@ -55,14 +55,14 @@ export default function Categories() {
 
         <Box>
           <Grid container spacing={2} justifyContent="center" alignItems="center">
-            {(isLoading ? Array.from(new Array(6)) : data?.data).map((inner) => (
+            {data.map((inner) => (
               <React.Fragment key={Math.random()}>
                 <Grid item lg={2} md={3} sm={4} xs={4}>
-                  <CategoryCard category={inner} isLoading={isLoading} />
+                  <CategoryCard category={inner} isLoading={false} />
                 </Grid>
               </React.Fragment>
             ))}
-            {!isLoading && !Boolean(data?.data.length) && (
+            {!Boolean(data.length) && (
               <Typography variant="h3" color="error.main" textAlign="center">
                 Categories not found
               </Typography>

@@ -53,16 +53,7 @@ function ProductDetailsCarousel({ ...props }) {
   return (
     <div className="slide-wrapper">
       {item && (
-        <BlurImage
-          priority
-          fill
-          objectFit="cover"
-          sizes="50%"
-          src={item?.url || item?.src}
-          alt="hero-carousel"
-          placeholder="blur"
-          blurDataURL={item.blurDataURL}
-        />
+        <BlurImage priority fill objectFit="cover" sizes="50%" src={item?.url || item?.src} alt="hero-carousel" />
       )}
       <Box className="bg-overlay" />
     </div>
@@ -133,8 +124,6 @@ export default function CarouselAnimation({ ...props }) {
                 sizes="14vw"
                 src={item?.src || item?.url}
                 alt="hero-carousel"
-                placeholder="blur"
-                blurDataURL={item.blurDataURL}
               />
             </Box>
           ))}

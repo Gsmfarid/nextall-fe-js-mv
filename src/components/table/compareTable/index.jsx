@@ -97,14 +97,7 @@ const CompareTable = () => {
                       overflow: 'hidden'
                     }}
                   >
-                    <Image
-                      src={product.image.url}
-                      alt={product.name}
-                      fill
-                      objectFit="cover"
-                      placeholder="blur"
-                      blurDataURL={product.image.blurDataURL}
-                    />
+                    <Image src={product.image.url} alt={product.name} fill objectFit="cover" />
                   </Box>
 
                   <Typography variant="subtitle1" sx={{ marginY: { md: 2, xs: 1 } }} noWrap>

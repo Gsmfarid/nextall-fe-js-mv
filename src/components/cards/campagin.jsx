@@ -91,11 +91,8 @@ export default function CampaignCard({ campaign, isLoading }) {
             <Image
               alt="shop"
               src={campaign?.cover?.url}
-              placeholder="blur"
-              blurDataURL={campaign?.cover?.blurDataURL}
               layout="fill"
               objectFit="cover"
-              static
               draggable="false"
               quality={5}
               sizes={'50vw'}

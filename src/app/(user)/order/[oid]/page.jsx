@@ -18,7 +18,8 @@ export const metadata = {
     'order confirmation, Nextall, order placed, successful order, order processing, order delivery, order status, order updates, fast delivery, shopping confirmation, shopping success, shopping updates, online shopping'
 };
 
-export default async function OrderMain({ params }) {
+export default async function OrderMain(props) {
+  const params = await props.params;
   const { oid } = params;
   const response = await fetch(process.env.BASE_URL + '/api/orders/' + oid).then((res) => res.json());
   if (!response) {

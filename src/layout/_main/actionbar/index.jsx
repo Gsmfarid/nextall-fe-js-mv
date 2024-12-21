@@ -10,7 +10,7 @@ import MenuDesktop from './menuDesktop';
 import config from 'src/layout/_main/config.json';
 
 // ----------------------------------------------------------------------
-export default function Navbar() {
+export default function Navbar({ categories }) {
   const { menu } = config;
 
   return (
@@ -29,7 +29,7 @@ export default function Navbar() {
       >
         <Container maxWidth="xl">
           <Toolbar className="toolbar" sx={{ minHeight: '48px!important', px: '0px!important' }}>
-            <MenuDesktop navConfig={menu} />
+            <MenuDesktop navConfig={menu} categories={categories} />
           </Toolbar>
         </Container>
       </AppBar>

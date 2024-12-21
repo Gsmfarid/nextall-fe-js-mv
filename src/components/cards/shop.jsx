@@ -69,11 +69,8 @@ export default function ShopCard({ ...props }) {
             <Image
               alt="shop"
               src={shop?.cover?.url}
-              placeholder="blur"
-              blurDataURL={shop?.cover?.blurDataURL}
               layout="fill"
               objectFit="cover"
-              static
               draggable="false"
               quality={5}
               sizes={'200px'}
@@ -128,11 +125,8 @@ export default function ShopCard({ ...props }) {
                 <Image
                   alt="shop"
                   src={shop?.logo?.url}
-                  placeholder="blur"
-                  blurDataURL={shop?.logo?.blurDataURL}
                   layout="fill"
                   objectFit="cover"
-                  static
                   draggable="false"
                   quality={5}
                   sizes={'50vw'}
@@ -261,12 +255,10 @@ ShopCard.propTypes = {
   shop: PropTypes.shape({
     slug: PropTypes.string.isRequired,
     cover: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      blurDataURL: PropTypes.string.isRequired
+      url: PropTypes.string.isRequired
     }),
     logo: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      blurDataURL: PropTypes.string.isRequired
+      url: PropTypes.string.isRequired
     }),
 
     title: PropTypes.string.isRequired,

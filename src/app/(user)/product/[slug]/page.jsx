@@ -15,8 +15,8 @@ import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
 // api
 import * as api from 'src/services';
 
-export const revalidate = 10;
-export const dynamic = 'error';
+export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const { data } = await api.getProductSlugs();
@@ -27,7 +27,8 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const { data: response } = await api.getProductDetails(params.slug);
 
   return {
@@ -41,7 +42,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ProductDetail({ params: { slug } }) {
+export default async function ProductDetail(props) {
+  const params = await props.params;
+  const { slug } = params;
   const response = await api.getProductDetails(slug);
 
   const { data, totalRating, totalReviews, brand, category, subCategory } = response;

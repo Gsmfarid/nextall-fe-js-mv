@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'next/navigation';
 import { fDateShort } from 'src/utils/formatTime';
@@ -38,7 +38,9 @@ Page.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-export default function Page({ params: { pid } }) {
+export default function Page(props) {
+  const params = use(props.params);
+  const { pid } = params;
   const theme = useTheme();
   const searchParams = useSearchParams();
   const pageParam = searchParams.get('page');

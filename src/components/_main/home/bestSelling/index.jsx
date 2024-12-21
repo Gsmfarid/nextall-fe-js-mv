@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import NextLink from 'next/link';
 
@@ -6,15 +5,13 @@ import NextLink from 'next/link';
 import { Typography, Box, Stack, Button } from '@mui/material';
 // api
 import * as api from 'src/services';
-import { useQuery } from 'react-query';
 // components
 import ProductsCarousel from 'src/components/carousels/gridSlider';
 // icons
 import { IoIosArrowForward } from 'react-icons/io';
 
-export default function Featured() {
-  const { data, isLoading } = useQuery(['get-best-products'], () => api.getBestSellingProducts());
-
+export default async function Featured() {
+  const { data } = await api.getBestSellingProducts();
   return (
     <Box>
       <Stack
@@ -53,12 +50,12 @@ export default function Featured() {
         </Button>
       </Stack>
 
-      {!isLoading && !Boolean(data?.data.length) ? (
+      {!Boolean(data?.length) ? (
         <Typography variant="h3" color="error.main" textAlign="center">
           Products not found
         </Typography>
       ) : (
-        <ProductsCarousel data={data?.data} isLoading={isLoading} />
+        <ProductsCarousel data={data} isLoading={false} />
       )}
       <Button
         variant="text"

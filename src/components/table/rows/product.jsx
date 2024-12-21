@@ -57,14 +57,7 @@ export default function ProductRow({ isLoading, row, handleClickOpen, isVendor }
                 }
               }}
             >
-              <BlurImage
-                alt={row?.name}
-                placeholder="blur"
-                blurDataURL={row?.image.blurDataURL}
-                src={row?.image.url}
-                layout="fill"
-                objectFit="cover"
-              />
+              <BlurImage alt={row?.name} src={row?.image.url} layout="fill" objectFit="cover" />
             </Box>
           )}
           <Typography variant="subtitle2" noWrap>

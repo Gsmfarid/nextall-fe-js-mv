@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 
 import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
 import EditCouponCode from 'src/components/_admin/couponCodes/editCouponCode';
@@ -13,7 +13,8 @@ Page.propTypes = {
     id: PropTypes.string.isRequired
   }).isRequired
 };
-export default function Page({ params }) {
+export default function Page(props) {
+  const params = use(props.params);
   const { data, isLoading } = useQuery(['coupon-codes'], () => api.getCouponCodeByAdmin(params.id), {
     onError: (err) => {
       toast.error(err.response.data.message || 'Something went wrong!');

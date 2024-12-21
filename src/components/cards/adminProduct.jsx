@@ -95,14 +95,7 @@ export default function AdminProductCard({ item, isLoading, handleClickOpen, isD
               <Skeleton variant="rectangular" width={56} height={56} sx={{ borderRadius: 1 }} />
             ) : (
               <ThumbImgStyle>
-                <BlurImage
-                  priority
-                  fill
-                  alt={item?.name}
-                  blurDataURL={item?.image.blurDataURL}
-                  src={item?.image.url}
-                  objectFit="cover"
-                />
+                <BlurImage priority fill alt={item?.name} src={item?.image.url} objectFit="cover" />
               </ThumbImgStyle>
             )}
             <Stack spacing={0.3}>
