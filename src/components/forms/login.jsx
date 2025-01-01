@@ -105,7 +105,7 @@ export default function LoginForm() {
           }
         >
           <AlertTitle>Admin</AlertTitle>
-          <b>Email:</b> admin@test.com | <b>password:</b> test1234
+          <b>Email:</b> admin@nextall.com | <b>password:</b> test1234
         </Alert>
         <Alert
           severity="secondary"
