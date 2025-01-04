@@ -77,11 +77,11 @@ export default function FormDialog({ open, handleClose, data, setCount }) {
     enableReinitialize: true,
     validationSchema: EditPaymentSchema,
 
-    onSubmit: async (event, values) => {
-      event.preventDefault();
+    onSubmit: async (values) => {
       const { ...rest } = values;
       await mutate({
         ...rest,
+        status,
         shop: data.shop,
         orders: data.orders,
         date: data?.date,
@@ -172,19 +172,13 @@ export default function FormDialog({ open, handleClose, data, setCount }) {
                       label="Status"
                       name="status"
                       id="status"
-                      {...getFieldProps('status')}
-                      error={Boolean(touched.status && errors.status)}
+                      value={status}
                       onChange={(e) => setStatus(e.target.value)}
                     >
                       <MenuItem value="pending">Pending</MenuItem>
                       <MenuItem value="paid">Paid</MenuItem>
                       <MenuItem value="hold">Hold</MenuItem>
                     </Select>
-                    {touched.status && errors.status && (
-                      <FormHelperText error sx={{ px: 2, mx: 0 }}>
-                        {touched.status && errors.status}
-                      </FormHelperText>
-                    )}
                   </FormControl>
                 </Stack>
                 {status === 'paid' && (
