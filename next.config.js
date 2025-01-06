@@ -4,9 +4,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config) => {
-    config.resolve.fallback = { fs: false };
+    config.resolve.fallback = { fs: false, os: false, path: false };
     return config;
   },
+  swcMinify: false,
   env: {
     BASE_URL: process.env.BASE_URL,
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,

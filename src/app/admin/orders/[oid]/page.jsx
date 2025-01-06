@@ -10,7 +10,7 @@ import { Container, Grid, Box, Alert, Skeleton } from '@mui/material';
 import OrderDetails from 'src/components/_main/orders/orderDetails';
 import TableCard from 'src/components/table/order';
 import HeaderBreadcrumbs from 'src/components/headerBreadcrumbs';
-import OrderToolbarActions from 'src/components/_admin/orders/orderToolbarActions';
+// import OrderToolbarActions from 'src/components/_admin/orders/orderToolbarActions';
 
 // api
 import * as api from 'src/services';
@@ -47,11 +47,11 @@ export default function OrderDetail(props) {
             href: ''
           }
         ]}
-        action={
-          <>
-            <OrderToolbarActions data={data?.data} />
-          </>
-        }
+        // action={
+        //   <>
+        //     <OrderToolbarActions data={data?.data} />
+        //   </>
+        // }
       />
       <Container maxWidth="xl">
         <Grid container direction={{ xs: 'row', md: 'row-reverse' }} spacing={2}>
