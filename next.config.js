@@ -19,7 +19,14 @@ const nextConfig = {
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID
   },
   images: {
-    domains: ['nextall.vercel.app"', 'res.cloudinary.com']
+    domains: ['localhost', 'res.cloudinary.com']
+  },
+  experimental: {
+    turbo: {
+      rules: {
+        // Configure any specific rules for Turbopack
+      }
+    }
   }
 };
 
